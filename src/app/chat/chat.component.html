@@ -1,0 +1,35 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <span class="bot-icon">🤖</span>
+    <span class="bot-name">Arithmetic Bot</span>
+    <span class="bot-status">Online</span>
+  </div>
+
+  <div class="messages-area" #messagesArea>
+    <div
+      *ngFor="let message of messages"
+      class="message-wrapper"
+      [class.user-wrapper]="message.sender === 'user'"
+      [class.bot-wrapper]="message.sender === 'bot'"
+    >
+      <div class="message" [class.user-message]="message.sender === 'user'" [class.bot-message]="message.sender === 'bot'">
+        <span class="message-text" [innerHTML]="formatText(message.text)"></span>
+        <span class="message-time">{{ message.timestamp | date:'HH:mm' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input
+      type="text"
+      class="message-input"
+      [(ngModel)]="userInput"
+      (keydown)="onKeyDown($event)"
+      placeholder="Ask me an arithmetic question..."
+      aria-label="Type your arithmetic question"
+    />
+    <button class="send-button" (click)="sendMessage()" aria-label="Send message">
+      ➤
+    </button>
+  </div>
+</div>
